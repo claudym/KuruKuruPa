@@ -1,0 +1,10 @@
+Ch1
+===
+-Sharpen your pencil
+1- 50
+2- false, true
+3- "Martha, you've won!"
+4- false, false, true
+5- 153300
+6- true
+7- 100108 (I think if it's possible)
