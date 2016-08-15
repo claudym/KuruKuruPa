@@ -52,3 +52,37 @@ function whatShallIWear(temp) {
 whatShallIWear(50);
 whatShallIWear(80);
 whatShallIWear(60);
+
+The Thing-A-Ma-Jig
+------------------
+facky = 120
+clunkCounter = 0
+size = 1
+
+num = 120
+Output:
+clunk
+clunk
+.... (120 times)
+120
+
+Who am I?
+---------
+1- argument
+2- return
+3- function
+4- parameter
+5- pass-by-value
+6- global variable
+7- function call
+8- Math.random
+9- built-in functions
+10- code reuse
+11- scope
+12- local variable
+
+Five MInute Mystery
+-------------------
+- Inside the function steal(balance, amount), the "balance" parameter has the
+  same name as the global variable. Therefore, shadowing and never changing the
+  value of the global variable.
