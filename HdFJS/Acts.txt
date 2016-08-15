@@ -1,10 +1,54 @@
 Ch1
 ===
--Sharpen your pencil
+Sharpen your pencil
+--------------------
 1- 50
 2- false, true
 3- "Martha, you've won!"
 4- false, false, true
 5- 153300
 6- true
-7- 100108 (I think if it's possible)
+7- "100108"
+
+Ch2
+===
+Sharpen your pencil
+--------------------
+humid = true
+isValid = true
+sendFile = true
+level = 2
+
+Exercise
+--------
+-Bob's code is better
+
+Ch3
+===
+Sharpen your pencil
+--------------------
+A) The code seems very redundant.
+
+Sharpen your pencil
+--------------------
+1- juno says woof woof
+2- scottie says woof woof
+3- dino...
+4- fido says woof woof
+5- lady says woof woof
+6- bruno says WOOF WOOF
+
+Code Magnets
+------------
+function whatShallIWear(temp) {
+  if(temp < 60) {
+    console.log("Wear a jacket");
+  } else if (temp < 70) {
+    console.log("Wear a sweater");
+  } else {
+    console.log("Wear t-shirt");
+  }
+}
+whatShallIWear(50);
+whatShallIWear(80);
+whatShallIWear(60);
