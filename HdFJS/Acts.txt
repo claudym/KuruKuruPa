@@ -86,3 +86,19 @@ Five MInute Mystery
 - Inside the function steal(balance, amount), the "balance" parameter has the
   same name as the global variable. Therefore, shadowing and never changing the
   value of the global variable.
+
+Ch4
+===
+Sharpen your pencil
+--------------------
+var last = products.length -1;
+
+Code Magnets
+------------
+bubblegum.js
+
+
+
+
+
+
