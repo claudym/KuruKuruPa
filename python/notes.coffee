@@ -42,9 +42,20 @@
 
   #slicing
   lt= ['cake', 'cookie', 'cracker', 'crouton']
-  lt[:1]  #returns ['cake', 'cookie']
-  lt[1:2] #returns ['cookie', 'cracker']
+  lt[:1]  #returns ['cake']
+  lt[1:3] #returns ['cookie', 'cracker']
   lt[1:]  #returns ['cookie', 'cracker', 'crouton']
+
+  #copying a list
+  lt_foods= ['pizza', 'falafel', 'rice']
+  lt_foods_copy= lt_foods[:]  #a slice without indices
+  
+  #nesting
+  #list of list
+  lt_of_lst = [[1,2], [3,4]]
+  #list of dictionaries
+  lt_dict = [{'name': 'billy', 'age': 8}, {'name': 'mandy', 'age': 10}]
+
 
 3>'Tuples':
   #immutable lists
@@ -60,7 +71,61 @@
   >>> tp.index('COBA')
   3
 
-4>'Looping':
+
+4>'Dictionaries':
+  #a set of key: value pairs, with the keys being unique (within one dict.)
+  appleDict= {
+    'color': 'green',
+    'flavor': 'sweet'
+  }
+  
+  #empty dict assignment
+  emptyDict = {}
+
+  #accessing (throws KeyError exception if key is not in dict)
+  appleDict['flavor']          #returns value 'sweet'
+  #accesing with get()
+  appleDict.get('flavah')      #returns None
+  appleDict.get('flavah', 'TT')#returns 'TT'
+
+  #modifying
+  appleDict['flavor'] = 'tart'  #{'color': 'green', 'flavor': 'tart'}
+  #adding elements:
+  appleDict['weight'] = 125     #{'color': 'green', 'flavor': 'tart', 'weight': 125}
+  #removing elements:
+  del appleDict['weight']       #{'color': 'green', 'flavor': 'tart'} 
+
+  #in keyword
+  >>> 'blue' in appleDict       # or 'blue' in appleDict.keys()
+  False
+
+  #nesting
+  #list in dict
+  pizza = {
+    'crust': 'thick',
+    'toppings': ['pineapple', 'ham']
+  }
+  #dict in dict
+  users = {
+    'efermi': {
+      'first': 'enrico',
+      'last': 'fermi'
+    },
+    'aeinstein': {
+      'first': 'albert',
+      'last': 'einstein'
+    }
+  }
+
+
+5>'Sets':
+  #an unordered collection with unique items
+  s_lang = {'english', 'portuguese', 'latin'}
+  #empty
+  s_lang = set()  # {} is a empty dict
+
+
+6>'Looping':
   trees= ['cherry', 'apple', 'pear']
   #for loop:
   for tree in tree: #for every `tree` in `trees`
@@ -74,11 +139,50 @@
     print(value)
   
   #list comprehensions
-  #combine the for loop and the creation of new elements into one line and automatically append each new element
+  #combine the for loop and the creation of new elements into one line 
+  #and automatically append each new element
   >>> [val**2 for val in range(1, 11)]
   [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
-  #copying a list
-  lt_foods= ['pizza', 'falafel', 'rice']
-  lt_foods_copy= lt_foods[:]  #a slice without indices
+  #dictionaries
+  user = {
+    'username': 'yurameshi',
+    'first': 'yusuke',
+    'last': 'urameshi'
+  }
+  #looping through all key:value pairs
+  for key, value in user.items():
+    print(f'\nKey: {key}')
+    print(f'\nValue: {value}')
+  #looping through all keys
+  for key in user:   # or: for key in user.keys():
+    print(f'key: {key}')
+  #looping through all values
+  for value in user.values():
+    print(f'value: {value}')
+  
+
+7>'Conditional testing':
+  #if statements provide a conditional test
+  if conditional_test:
+    do_something
+  elif conditional_test_2:
+    do_another_thing
+  else:
+    do_something_else
+  
+  #boolean operators:
+  and, or, not
+  #comparison operators:
+  ==, !=, <, <=, >, >=
+
+  #in keyword
+  #check if value inside list
+  lt=['cat', 'dog', 'rat']
+  if 'rat' in lt:
+    print('so nasty xD')
+  #check if value not inside list
+  if 'rat' not in lt:
+    print('clean!')
+  
 }
