@@ -279,6 +279,60 @@
   from module import *  #use function name (discouraged)
 
 
-10>'Classes':
+10>'Classes (OOP)':
+  #In object-oriented programming you write classes that represent real-world
+  #things and situations, and you create objects based on these classes
+
+  #class name in PascalCase
+  class Dog:
+    
+    #runs automatically whenever a new instance of the class Dog is created
+    def __init__(self, name, age):  #self is passed automatically
+      self.name = name  #attributes: self.name and self.age will be available
+      self.age = age    #to every method in the class and instantiated objects
+      self.fav_food = 'chicken' #default value for attribute
+    
+    def sit(self):  #methods
+      print(f'{self.name} is now sitting.')
+    def roll_over(self):
+      print(f'{self.name} rolled over!')
+    def update_fav_food(self, fav_food):
+      self.fav_food = fav_food
+
+  #making an instance
+  doggie = Dog('billie', 3)
+  #accessing attributes
+  doggie.name
+  #calling methods
+  doggie.sit()
+  #modifying attribute directly
+  doggie.fav_food = 'burger'
+  #modifying attribute through a method
+  doggie.update_fav_food('falafel')
+
+  #inheritance
+  ############
+  #__init__() method for a child class
+  class Car: #parent class (car.py)
+    def __init__(self, make, model, year):
+    #...
+    def fill_gas_tank(self):
+    #fill gas tank
+  class Battery:
+    #...
+    def describe_battery(self, battery_size=75):
+      #battery description
+  class ElectricCar(Car): #child class
+    def __init__(self, make, model, year):
+      super().__init__(make, model, year) #calls __init__() from parent class
+      self.battery = Battery()  #has-a relationship (composition)
+    def fill_gas_tank() #method overriding
+    #do nothing at all with gas
+  
+  #importing classes
+  from car import Car, ElectricCar
+
+
+11>'Files and Exceptions':
 
 }

@@ -1,10 +1,10 @@
-import math
+from car import Car, ElectricCar
 
-def make_car(manufacturer, model, **car_info):
-  car_info['manufacturer'] = manufacturer
-  car_info['model'] = model
-  return car_info
+ore_no_tesla = ElectricCar('tesla', 'model x', 2019)
+print(ore_no_tesla.get_descriptive_name())
 
-car = make_car('subaru', 'outback', color='blue', tow_package=True)
-print(car)
-print(math.pi)
+ore_no_tesla.odometer = 50
+ore_no_tesla.read_odometer()
+
+ore_no_tesla.battery.describe_battery()
+ore_no_tesla.battery.get_range()
