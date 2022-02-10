@@ -161,6 +161,28 @@
   for value in user.values():
     print(f'value: {value}')
   
+  #while
+  message = ''
+  while message != 'quit':  #this will run while message is not equal to 'quit'
+    message = input('Give me your message!')
+    print(message)
+  #break
+  while True:
+    print("I'm infinite")
+    wish = input('Do you wanna quit? (yes/no)? ')
+    if wish.lower() == 'yes':
+      break   #this will exit the loop
+  #continue
+  num = 0
+  while num < 10:
+    num += 1
+    if num % 2 == 0:
+      continue  #loop will go to the next iteration
+    print(num)
+
+  #remove all instances of specific values from a list
+  while 'cat' in pets:
+    pets.remove('cat')
 
 7>'Conditional testing':
   #if statements provide a conditional test
@@ -185,4 +207,78 @@
   if 'rat' not in lt:
     print('clean!')
   
+
+8>'User input':
+  #input() pauses the program and waits for the user to enter some text
+  name = input('Please enter your name: ')
+
+  #explicit casting
+  height= int('9') #converts it to an integer
+
+
+9>'Functions':
+  #named blocks of code designed to do one specific job
+
+  #function definition
+  def greetings(username):  #username is the parameter
+    """Greet a user"""  #doctring comment: describe what the function does
+    print(f'Hola {username}')  
+  #function call  
+  greetings('alexa')  #'alexa' is the argument
+
+  #positional arguments
+  def describe_pet(pet_name, animal_type):
+    print(f"My {animal_type}'s name is {pet_name.title()}.")
+  describe_pet('lengo', 'cat')  #prints  `My cat's name is Lengo`
+  #positional arguments - arbitrary number: *args
+  def make_pizza(*toppings): #makes an empty tuple and packs all values there
+  print('\nMaking a pizza with the following toppings:')
+  for topping in toppings:
+    print(f'- {topping}')
+  #mixing positional and arbitrary arguments
+  def make_pizza(size, *toppings) #*toppings must go at the end
+
+  #keyword arguments
+  describe_pet(animal_type='dog', pet_name='freya') #prints `My dog's name is Freya`
+  #keyboard arguments - arbitrary number: *kwargs
+  #accept as may key=value pairs as the calling statement provides
+  def build_profile(first, last, **user_info):
+    user_info['first'] = first
+    user_info['last'] = last
+    return user
+  user_profile = build_profile('albert', 'einstein', 
+                                location='princeton' 
+                                field='physics')
+  
+  #default values
+  def describe_pet(pet_name, animal_type='dragon'): #default values at end of function
+  print(f"My {animal_type}'s name is {pet_name.title()}.")
+  describe_pet(pet_name='freya')  #prints `My dragon's name is Freya`
+
+  #return values
+  def get_formatted_name(first_name, last_name):
+    full_name = f'{first_name} {last_name}'
+    return full_name.title()
+  musician = get_formatted_name('rick', 'sanchez')
+  print(musician) 
+
+  #send copy of a list
+  def function_name(list_name[:])
+
+  #modules: functions stored in a separate file
+  #########
+  #importing an entire module
+  import module   #use: module.function()
+  #importing specific function(s)
+  from module import function_0, function_1
+  #import with alias in module
+  import module as mod  #use: mod.function()
+  #import with alias in function
+  from module import function as func   #use: func() 
+  #import all functions in a module
+  from module import *  #use function name (discouraged)
+
+
+10>'Classes':
+
 }
