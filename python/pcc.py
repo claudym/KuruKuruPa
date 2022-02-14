@@ -1,10 +1,28 @@
-from car import Car, ElectricCar
+import json
 
-ore_no_tesla = ElectricCar('tesla', 'model x', 2019)
-print(ore_no_tesla.get_descriptive_name())
+def get_stored_username():
+  filename = 'username.json'
+  try:
+    with open(filename) as f:
+      username = json.load(f)
+  except FileNotFoundError:
+    return None
+  else:
+    return username
 
-ore_no_tesla.odometer = 50
-ore_no_tesla.read_odometer()
+def get_new_username():
+  username = input('What is your name? ')
+  filename = 'username.json'
+  with open(filename, 'w') as f:
+    json.dump(username, f)
 
-ore_no_tesla.battery.describe_battery()
-ore_no_tesla.battery.get_range()
+def greet_user():
+  """Greet user by name"""
+  username = get_stored_username()
+  if username:
+    print(f'Welcome back, {username}!')
+  else:  
+    username = get_new_username()
+    print(f"We'll remember you when you come back, {username}")
+
+greet_user()

@@ -332,7 +332,89 @@
   #importing classes
   from car import Car, ElectricCar
 
+  #property and setter decorators (pythonic way):
+  class OurClass:
+      def __init__(self, a):
+          self.OurAtt = a
+      @property
+      def OurAtt(self):
+          return self.__OurAtt
+      @OurAtt.setter
+      def OurAtt(self, val):
+          if val < 0:
+              self.__OurAtt = 0
+          elif val > 1000:
+              self.__OurAtt = 1000
+          else:
+              self.__OurAtt = val
+  x = OurClass(10)
+  print(x.OurAtt)
 
-11>'Files and Exceptions':
+11>'Files':
+  #reading
+  ########
+  #reading entire file
+  with open('file_name') as file_object:
+    contents = file_object.read()
+  print(contents) #this would print contents of whole file
+  #reading line by line
+  with open('file_name') as file_object:
+    for line in file_object:
+      print(line.rstrip())
+  #reading to list of lines
+  with open('file_name') as file_object:
+    lines = file_object.readlines()
+  
+  #writing
+  ########
+  #writing to an empty file
+  with open('file_name', 'w') as file_object:
+    file_object.write("I love programming")
+  #writing multiple lines
+  with open('file_name', 'w') as file_object:
+    file_object.write('programmingが好き!\n')
+    file_object.write('ゲームも好き\n')
+
+  #appending
+  ##########
+  with open(filename, 'a') as file_object:
+    file_object.write('machine learning too\n')
+    file_object.write("and don't forget the backend xD\n")
+
+  #json dumping
+  #############
+  import json
+
+  numbers = [2, 3, 5, 7, 11, 13]
+  with open('numbers.json', 'w') as f:
+    json.dump(numbers, f)
+  
+  #json loading
+  #############
+  with open('numbers.json') as f:
+    numbers = json.load(f)
+
+
+12>'Exceptions':
+  #special objects to manage errors that arise during a program's execution
+
+  #ZeroDivisionError Exception
+  try:
+    print(3/0)
+  except ZeroDivisionError:
+    print("that's a no no")
+
+  #FileNotFoundError Exception
+  filename = 'alice.txt'
+  try:  #only include code that might throw an exception
+    with open(filename, encoding='utf-8') as f:
+      contents = f.read()
+  except FileNotFoundError: #exception handling
+    print(f"sorry TT {filename} file doesn't exist") 
+  else: #the rest of the code where no exception might happen
+    print(f"The file {filename} has about {len(contents.split())} words.")
+
+
+13>'Testing':
 
 }
