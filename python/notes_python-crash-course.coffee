@@ -232,9 +232,9 @@
   describe_pet('lengo', 'cat')  #prints  `My cat's name is Lengo`
   #positional arguments - arbitrary number: *args
   def make_pizza(*toppings): #makes an empty tuple and packs all values there
-  print('\nMaking a pizza with the following toppings:')
-  for topping in toppings:
-    print(f'- {topping}')
+    print('\nMaking a pizza with the following toppings:')
+    for topping in toppings:
+      print(f'- {topping}')
   #mixing positional and arbitrary arguments
   def make_pizza(size, *toppings) #*toppings must go at the end
 
@@ -245,14 +245,14 @@
   def build_profile(first, last, **user_info):
     user_info['first'] = first
     user_info['last'] = last
-    return user
+    return user_info
   user_profile = build_profile('albert', 'einstein', 
                                 location='princeton' 
                                 field='physics')
   
   #default values
   def describe_pet(pet_name, animal_type='dragon'): #default values at end of function
-  print(f"My {animal_type}'s name is {pet_name.title()}.")
+    print(f"My {animal_type}'s name is {pet_name.title()}.")
   describe_pet(pet_name='freya')  #prints `My dragon's name is Freya`
 
   #return values
