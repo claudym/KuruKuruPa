@@ -107,7 +107,7 @@
   'GNU is free software that provides open source equivalents of many common UNIX commands and building tools.'
   "GNU's Not UNIX"
 -Linux is Open Source
--Linux Has Distributions:
+-Linux has Distributions:
   'The kernel, tools, and suite of applications that come bundled together.'
   'Usually include a package manager (dpkg, RPM, ...)'
   'Many distros suited to different tasks (running servers, desktops, statistical computing,...)'
@@ -600,7 +600,7 @@
   [0-9]* ->'matches any file that contain at least a number. `[9-0]` doesnt work because it doesnt follow the ASCII table range.'
 -Exclamation Point '!':
   'used in conjunction with the square brackets to negate a range.'
-  [!DP] ->'matches any file that does NOT begin with a D or P.'
+  [!DP]* ->'matches any file that does NOT begin with a D or P.'
 -Listing with Globs:
   'the shell expands the glob pattern into corresponding file names.'
   'when using the' ls 'command, always use the option' -d 'to display the name of directories instead of their content.'
