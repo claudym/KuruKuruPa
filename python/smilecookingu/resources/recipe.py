@@ -45,6 +45,13 @@ class RecipeResource(Resource):
         recipe.directions = data['directions']
         return recipe.data, HTTPStatus.OK
 
+    def delete(self, recipe_id):
+        i = next((i for i in range(len(recipe_list)) if recipe_list[i].id == recipe_id), None)
+        if i is None:
+            return {'message': 'recipe not found'}, HTTPStatus.NOT_FOUND
+        del recipe_list[i]
+        return {'message': 'recipe deleted'}, HTTPStatus.OK
+
 
 class RecipePublishResource(Resource):
     def put(self, recipe_id):
