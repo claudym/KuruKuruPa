@@ -1,14 +1,13 @@
 from flask import Flask
 from flask_restful import Api
 from flask_migrate import Migrate
-from config import Config
 from extensions import db
 from resources.recipe import RecipeListResource, RecipeResource, RecipePublishResource
 
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object(Config)
+    app.config.from_object('config.Config.DevelopmentConfig')
     register_extensions(app)
     register_resources(app)
     return app
@@ -28,4 +27,4 @@ def register_resources(app):
 
 if __name__ == '__main__':
     application = create_app()
-    application.run(port=5000, debug=True)
+    application.run()
