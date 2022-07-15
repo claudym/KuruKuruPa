@@ -1,7 +1,7 @@
 from extensions import db
 
 recipe_list = []
-dummy_id = 0
+dummy_id = 2
 
 
 def get_last_id():
