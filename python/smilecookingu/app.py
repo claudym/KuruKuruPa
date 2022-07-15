@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_migrate import Migrate
 from extensions import db
+from models.user import User
 from resources.recipe import RecipeListResource, RecipeResource, RecipePublishResource
 
 
