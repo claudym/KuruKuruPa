@@ -1,14 +1,18 @@
 from extensions import db
 
 recipe_list = []
+dummy_id = 0
 
 
 def get_last_id():
-    if recipe_list:
-        last_recipe = recipe_list[-1]
-    else:
-        return 1
-    return last_recipe.id + 1
+    # if recipe_list:
+    #     last_recipe = recipe_list[-1]
+    # else:
+    #     return 1
+    # return last_recipe.id + 1
+    global dummy_id
+    dummy_id = dummy_id + 1
+    return dummy_id
 
 
 class Recipe(db.Model):
@@ -24,7 +28,7 @@ class Recipe(db.Model):
     updated_at = db.Column(db.DateTime(), nullable=False, server_default=db.func.now(), onupdate=db.func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, name, description, num_of_servings, cook_time, directions):
+    def __init__(self, name, description, num_of_servings, cook_time, directions, user_id):
         self.id = get_last_id()
         self.name = name
         self.description = description
@@ -32,6 +36,7 @@ class Recipe(db.Model):
         self.cook_time = cook_time
         self.directions = directions
         self.is_publish = False
+        self.user_id = user_id
 
     @property
     def data(self):
