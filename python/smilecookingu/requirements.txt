@@ -5,3 +5,4 @@ Flask_SQLAlchemy
 psycopg2-binary
 passlib
 Flask-Migrate
+Flask-JWT-Extended
