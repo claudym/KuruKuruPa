@@ -1,19 +1,5 @@
 from extensions import db
 
-recipe_list = []
-dummy_id = 2
-
-
-def get_last_id():
-    # if recipe_list:
-    #     last_recipe = recipe_list[-1]
-    # else:
-    #     return 1
-    # return last_recipe.id + 1
-    global dummy_id
-    dummy_id = dummy_id + 1
-    return dummy_id
-
 
 class Recipe(db.Model):
     __tablename__ = 'recipe'
@@ -46,5 +32,22 @@ class Recipe(db.Model):
             "description": self.description,
             "num_of_servings": self.num_of_servings,
             "cook_time": self.cook_time,
-            "directions": self.directions
+            "directions": self.directions,
+            "user_id": self.user_id
         }
+
+    @classmethod
+    def get_all_published(cls):
+        return cls.query.filter_by(is_publish=True).all()
+
+    @classmethod
+    def get_by_id(cls):
+        return cls.query.filter_by(id=recipe_id).all()
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
