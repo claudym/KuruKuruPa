@@ -41,7 +41,7 @@ class Recipe(db.Model):
         return cls.query.filter_by(is_publish=True).all()
 
     @classmethod
-    def get_by_id(cls):
+    def get_by_id(cls, recipe_id):
         return cls.query.filter_by(id=recipe_id).all()
 
     def save(self):
