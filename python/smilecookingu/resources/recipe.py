@@ -10,9 +10,10 @@ class RecipeListResource(Resource):
         recipes = Recipe.get_all_published()
         data = []
         for recipe in recipes:
-            data.append(recipe.data)
+            data.append(recipe.data())
         return {"data": data}, HTTPStatus.OK
 
+    @jwt_required()
     def post(self):
         data = request.get_json()
         current_user = get_jwt_identity()
@@ -30,7 +31,7 @@ class RecipeResource(Resource):
     @jwt_required(optional=True)
     def get(self, recipe_id):
         recipe = Recipe.get_by_id(recipe_id)
-        if recipe is None:
+        if not recipe:
             return {"message": "Recipe not found"}, HTTPStatus.NOT_FOUND
 
         current_user = get_jwt_identity()
@@ -42,7 +43,7 @@ class RecipeResource(Resource):
     def put(self, recipe_id):
         json_data = request.get_json()
         recipe = Recipe.get_by_id(recipe_id)
-        if recipe is None:
+        if not recipe:
             return {'message': 'Recipe not found'}, HTTPStatus.NOT_FOUND
 
         current_user = get_jwt_identity()
@@ -55,7 +56,7 @@ class RecipeResource(Resource):
         recipe.cook_time = json_data['cook_time']
         recipe.directions = json_data['directions']
         recipe.save()
-        return recipe.data, HTTPStatus.OK
+        return recipe.data(), HTTPStatus.OK
 
     @jwt_required()
     def delete(self, recipe_id):
@@ -72,15 +73,17 @@ class RecipeResource(Resource):
 
 class RecipePublishResource(Resource):
     def put(self, recipe_id):
-        recipe = next((recipe for recipe in recipe_list if recipe.id == recipe_id), None)
-        if recipe is None:
-            return {"message": "recipe not found"}, HTTPStatus.NOT_FOUND
-        recipe.is_publish = True
-        return {}, HTTPStatus.NO_CONTENT
+        # recipe = next((recipe for recipe in recipe_list if recipe.id == recipe_id), None)
+        # if recipe is None:
+        #     return {"message": "recipe not found"}, HTTPStatus.NOT_FOUND
+        # recipe.is_publish = True
+        # return {}, HTTPStatus.NO_CONTENT
+        pass
 
     def delete(self, recipe_id):
-        recipe = next((recipe for recipe in recipe_list if recipe.id == recipe_id), None)
-        if recipe is None:
-            return {"message": "recipe not found"}, HTTPStatus.NOT_FOUND
-        recipe.is_publish = False
-        return {}, HTTPStatus.NO_CONTENT
+        # recipe = next((recipe for recipe in recipe_list if recipe.id == recipe_id), None)
+        # if recipe is None:
+        #     return {"message": "recipe not found"}, HTTPStatus.NOT_FOUND
+        # recipe.is_publish = False
+        # return {}, HTTPStatus.NO_CONTENT
+        pass
