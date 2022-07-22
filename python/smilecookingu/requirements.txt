@@ -7,3 +7,4 @@ passlib
 Flask-Migrate
 Flask-JWT-Extended
 marshmallow
+webargs

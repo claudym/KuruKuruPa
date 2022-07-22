@@ -15,6 +15,15 @@ class Recipe(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     @classmethod
+    def get_all_by_user(cls, user_id, visibility='public'):
+        if visibility == 'public':
+            return cls.query.filter_by(user_id=user_id, is_publish=True).all()
+        elif visibility == 'private':
+            return cls.query.filter_by(user_id=user_id, is_publish=False).all()
+        else:
+            return cls.query.filter_by(user_id=user_id).all()
+
+    @classmethod
     def get_all_published(cls):
         return cls.query.filter_by(is_publish=True).all()
 
