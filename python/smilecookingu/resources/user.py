@@ -1,5 +1,5 @@
 import os
-from flask import request, url_for
+from flask import request, url_for, render_template
 from flask_restful import Resource
 from http import HTTPStatus
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -33,16 +33,16 @@ class UserListResource(Resource):
 
         user = User(**data)
         user.save()
+        data = user_schema.dump(user)
         # mailgun
         mailgun = MailgunApi(domain=os.environ.get('MAILGUN_DOMAIN'),
                              api_key=os.environ.get('MAILGUN_API_KEY'))
         token = generate_token(user.email, salt='activate')
         subject = 'Please confirm your registration.'
         link = url_for('useractivateresource', token=token, _external=True)
-        text = 'Hola, Thanks for using SmileCookingu! Please confirm your registration by' \
-               f'clicking on the link: {link}'
-        data = user_schema.dump(user)
-        mailgun.send_email(to=user.email, subject=subject, text=text)
+        text = 'Hola, Thanks for using SmileCookingu!'
+        mailgun.send_email(to=user.email, subject=subject, text=text,
+                           html=render_template('account_activation.html', text=text, link=link))
         return data, HTTPStatus.CREATED
 
 
