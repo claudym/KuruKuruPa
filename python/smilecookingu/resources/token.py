@@ -22,6 +22,8 @@ class TokenResource(Resource):
         user = User.get_by_email(email=email)
         if user is None or not check_password(password, user.password):
             return {'message': 'email or password is incorrect'}, HTTPStatus.UNAUTHORIZED
+        if user.is_active is False:
+            return {'message': 'Please activate your account.'}, HTTPStatus.FORBIDDEN
 
         access_token = create_access_token(identity=user.id, fresh=True)
         refresh_token = create_refresh_token(identity=user.id)
