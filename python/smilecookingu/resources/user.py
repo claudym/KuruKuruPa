@@ -7,7 +7,8 @@ from marshmallow import ValidationError
 from webargs import fields
 from webargs.flaskparser import use_kwargs
 from mailgun import MailgunApi
-from utils import generate_token, verify_token
+from utils import generate_token, verify_token, save_image
+from extensions import image_set
 from models.user import User
 from models.recipe import Recipe
 from schemas.user import UserSchema
@@ -17,6 +18,7 @@ from schemas.recipe import RecipeSchema
 user_schema = UserSchema()
 user_public_schema = UserSchema(exclude=('email', ))
 recipe_list_schema = RecipeSchema(many=True)
+user_avatar_schema = UserSchema(only=('avatar_url',))
 
 
 class UserListResource(Resource):
@@ -99,3 +101,22 @@ class UserActivateResource(Resource):
         user.is_active = True
         user.save()
         return {}, HTTPStatus.NO_CONTENT
+
+
+class UserAvatarUploadResource(Resource):
+    @jwt_required()
+    def put(self):
+        file = request.files.get('avatar')
+        if not file:
+            return {'message': 'Not a valid image'}, HTTPStatus.BAD_REQUEST
+        if not image_set.file_allowed(file, file.filename):
+            return {'message': 'File type not allowed'}, HTTPStatus.BAD_REQUEST
+        user = User.get_by_id(id=get_jwt_identity())
+        if user.avatar_image:
+            avatar_path = image_set.path(folder='avatars', filename=user.avatar_image)
+            if os.path.exists(avatar_path):
+                os.remove(avatar_path)
+        filename = save_image(image=file, folder='avatars')
+        user.avatar_image = filename
+        user.save()
+        return user_avatar_schema.dump(user), HTTPStatus.OK

@@ -1,9 +1,16 @@
 from flask import Flask
 from flask_restful import Api
 from flask_migrate import Migrate
-from extensions import db, jwt
+from flask_uploads import configure_uploads
+from extensions import db, jwt, image_set
 from resources.token import TokenResource, RefreshResource, RevokeResource, block_list
-from resources.user import UserListResource, UserResource, MeResource, UserRecipeListResource, UserActivateResource
+from resources.user import (
+    UserListResource,
+    UserResource,
+    MeResource,
+    UserRecipeListResource,
+    UserActivateResource,
+    UserAvatarUploadResource)
 from resources.recipe import RecipeListResource, RecipeResource, RecipePublishResource
 
 
@@ -19,6 +26,8 @@ def register_extensions(app):
     db.init_app(app)
     Migrate(app, db)
     jwt.init_app(app)
+    configure_uploads(app, image_set)
+    # patch_request_class(app, 10 * 1024 * 1024)
 
     @jwt.token_in_blocklist_loader
     def check_if_token_in_blocklist(jwt_header, jwt_payload):
@@ -39,6 +48,7 @@ def register_resources(app):
     api.add_resource(RefreshResource, '/refresh')
     api.add_resource(RevokeResource, '/revoke')
     api.add_resource(UserActivateResource, '/users/activate/<string:token>')
+    api.add_resource(UserAvatarUploadResource, '/users/avatar')
 
 
 if __name__ == '__main__':

@@ -10,3 +10,4 @@ marshmallow
 webargs
 requests
 itsdangerous
+Flask-Reuploaded
