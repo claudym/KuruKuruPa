@@ -1,4 +1,5 @@
 from marshmallow import Schema, fields, post_dump, validate, validates, ValidationError
+from flask import url_for
 from schemas.user import UserSchema
 
 
@@ -35,3 +36,9 @@ class RecipeSchema(Schema):
     num_of_servings = fields.Int(validate=validate_num_of_servings)
     cook_time = fields.Int()
     author = fields.Nested(UserSchema, attribute='user', dump_only=True, only=['id', 'username'])
+    cover_url = fields.Method(serialize='dump_cover_url')
+
+
+    def dump_cover_url(self, recipe):
+        if recipe.cover_image:
+            return url_for('static', filename=f'images/recipes/{recipe.cover_image}', _external=True)

@@ -1,6 +1,6 @@
 from marshmallow import Schema, fields
-from utils import hash_password
 from flask import url_for
+from utils import hash_password
 
 
 class UserSchema(Schema):
