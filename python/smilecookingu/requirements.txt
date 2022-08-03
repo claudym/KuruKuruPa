@@ -11,3 +11,4 @@ webargs
 requests
 itsdangerous
 Flask-Reuploaded
+Pillow
