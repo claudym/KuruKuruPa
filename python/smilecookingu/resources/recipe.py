@@ -4,8 +4,10 @@ from flask_restful import Resource
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from http import HTTPStatus
 from marshmallow import ValidationError
+from webargs import fields
+from webargs.flaskparser import use_kwargs
 from models.recipe import Recipe
-from schemas.recipe import RecipeSchema
+from schemas.recipe import RecipeSchema, RecipePaginationSchema
 from utils import save_image
 from extensions import image_set
 
@@ -13,12 +15,14 @@ from extensions import image_set
 recipe_schema = RecipeSchema()
 recipe_list_schema = RecipeSchema(many=True)
 recipe_cover_schema = RecipeSchema(only=('cover_url',))
+recipe_pagination_schema = RecipePaginationSchema()
 
 
 class RecipeListResource(Resource):
-    def get(self):
-        recipes = Recipe.get_all_published()
-        data = recipe_list_schema.dump(recipes)
+    @use_kwargs({'page': fields.Int(missing=1), 'per_page': fields.Int(missing=20)}, location='query')
+    def get(self, page, per_page):
+        paginated_recipes = Recipe.get_all_published(page, per_page)
+        data = recipe_pagination_schema.dump(paginated_recipes)
         return data, HTTPStatus.OK
 
     @jwt_required()
