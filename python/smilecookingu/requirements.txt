@@ -12,3 +12,4 @@ requests
 itsdangerous
 Flask-Reuploaded
 Pillow
+SQLAlchemy
