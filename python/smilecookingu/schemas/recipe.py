@@ -1,6 +1,7 @@
 from marshmallow import Schema, fields, post_dump, validate, validates, ValidationError
 from flask import url_for
 from schemas.user import UserSchema
+from schemas.pagination import PaginationSchema
 
 
 class RecipeSchema(Schema):
@@ -20,11 +21,11 @@ class RecipeSchema(Schema):
         if n > 10000:
             raise ValidationError('Servings cannot be greater that 10,000')
 
-    @post_dump(pass_many=True)
-    def wrap(self, data, many, **kwargs):
-        if many:
-            return {'data': data}
-        return data
+    # @post_dump(pass_many=True)
+    # def wrap(self, data, many, **kwargs):
+    #     if many:
+    #         return {'data': data}
+    #     return data
 
     id = fields.Int(dump_only=True)
     name = fields.Str(required=True, validate=[validate.Length(max=100)])
@@ -38,7 +39,10 @@ class RecipeSchema(Schema):
     author = fields.Nested(UserSchema, attribute='user', dump_only=True, only=['id', 'username'])
     cover_url = fields.Method(serialize='dump_cover_url')
 
-
     def dump_cover_url(self, recipe):
         if recipe.cover_image:
             return url_for('static', filename=f'images/recipes/{recipe.cover_image}', _external=True)
+
+
+class RecipePaginationSchema(PaginationSchema):
+    data = fields.Nested(RecipeSchema, attribute='items', many=True)
