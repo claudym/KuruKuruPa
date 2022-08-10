@@ -38,6 +38,7 @@ class RecipeSchema(Schema):
     cook_time = fields.Int()
     author = fields.Nested(UserSchema, attribute='user', dump_only=True, only=['id', 'username'])
     cover_url = fields.Method(serialize='dump_cover_url')
+    ingredients = fields.Str(validate=[validate.Length(max=200)])
 
     def dump_cover_url(self, recipe):
         if recipe.cover_image:
