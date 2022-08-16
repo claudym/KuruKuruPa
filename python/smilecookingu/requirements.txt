@@ -13,3 +13,4 @@ itsdangerous
 Flask-Reuploaded
 Pillow
 SQLAlchemy
+Flask-Caching

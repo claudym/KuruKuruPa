@@ -4,6 +4,8 @@ class Config:
     DEBUG = False
     SECRET_KEY = os.environ.get('SECRET_KEY')
     JWT_ERROR_MESSAGE_KEY = 'message'
+    CACHE_TYPE = 'simple'
+    CACHE_DEFAULT_TIMEOUT = 10 * 60
 
 
 class DevelopmentConfig(Config):

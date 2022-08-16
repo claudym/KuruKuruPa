@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_migrate import Migrate
 from flask_uploads import configure_uploads
-from extensions import db, jwt, image_set
+from extensions import db, jwt, image_set, cache
 from resources.token import (
     TokenResource,
     RefreshResource,
@@ -35,11 +35,25 @@ def register_extensions(app):
     Migrate(app, db)
     jwt.init_app(app)
     configure_uploads(app, image_set)
+    cache.init_app(app)
 
     @jwt.token_in_blocklist_loader
     def check_if_token_in_blocklist(jwt_header, jwt_payload):
         jti = jwt_payload['jti']
         return jti in block_list
+
+    @app.before_request
+    def before_request():
+        print('\n==================== BEFORE REQUEST ====================\n')
+        print(cache.cache._cache.keys())
+        print('\n========================================================\n')
+
+    @app.after_request
+    def after_request(response):
+        print('\n==================== AFTER REQUEST ====================\n')
+        print(cache.cache._cache.keys())
+        print('\n========================================================\n')
+        return response
 
 
 def register_resources(app):
