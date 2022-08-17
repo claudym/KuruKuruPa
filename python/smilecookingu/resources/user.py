@@ -8,7 +8,7 @@ from webargs import fields
 from webargs.flaskparser import use_kwargs
 from mailgun import MailgunApi
 from utils import generate_token, verify_token, save_image, clear_cache
-from extensions import image_set
+from extensions import image_set, limiter
 from models.user import User
 from models.recipe import Recipe
 from schemas.user import UserSchema
@@ -73,6 +73,9 @@ class MeResource(Resource):
 
 
 class UserRecipeListResource(Resource):
+    decorators = [limiter.limit('3/minute;30/hour;300/day', methods=['GET'],
+                                error_message='Too Many Requests')]
+
     @jwt_required(optional=True)
     @use_kwargs({'visibility': fields.Str(missing='public'),
                  'page': fields.Int(missing=1),
