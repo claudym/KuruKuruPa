@@ -9,7 +9,7 @@ from webargs.flaskparser import use_kwargs
 from models.recipe import Recipe
 from schemas.recipe import RecipeSchema, RecipePaginationSchema
 from utils import save_image, clear_cache
-from extensions import image_set, cache
+from extensions import image_set, cache, limiter
 
 
 recipe_schema = RecipeSchema()
@@ -19,6 +19,9 @@ recipe_pagination_schema = RecipePaginationSchema()
 
 
 class RecipeListResource(Resource):
+    decorators = [limiter.limit('2 per minute', methods=['GET'],
+                                error_message='Too Many Requests')]
+
     @use_kwargs({'q': fields.Str(missing=''),
                  'page': fields.Int(missing=1),
                  'per_page': fields.Int(missing=20),
@@ -26,7 +29,6 @@ class RecipeListResource(Resource):
                  'order': fields.Str(missing='desc')}, location='query')
     @cache.cached(timeout=60, query_string=True)
     def get(self, q, page, per_page, sort, order):
-        print('Querying database...')  # test
         if sort not in ['created_at', 'cook_time', 'num_of_servings']:
             sort = 'created_at'
         if order not in ['asc', 'desc']:

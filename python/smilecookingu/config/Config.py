@@ -6,6 +6,7 @@ class Config:
     JWT_ERROR_MESSAGE_KEY = 'message'
     CACHE_TYPE = 'simple'
     CACHE_DEFAULT_TIMEOUT = 10 * 60
+    RATELIMIT_HEADERS_ENABLED = True
 
 
 class DevelopmentConfig(Config):
