@@ -48,7 +48,7 @@
 
   #copying a list
   lt_foods= ['pizza', 'falafel', 'rice']
-  lt_foods_copy= lt_foods[:]  #a slice without indices
+  lt_foods_copy= lt_foods[:]  #a slice without indices: shallow copy
   
   #nesting
   #list of list
@@ -132,8 +132,8 @@
     print(tree)
   
   #range(start, end, increment)
-  range(1, 5)     #returns list [1, 2, 3, 4]
-  range(2, 11, 2) #returns list [2, 4, 6, 8, 10] 
+  range(1, 5)     #returns generator (1, 2, 3, 4)
+  range(2, 11, 2) #returns generator (2, 4, 6, 8, 10) 
   #for with range()
   for value in range(1, 5):
     print(value)
